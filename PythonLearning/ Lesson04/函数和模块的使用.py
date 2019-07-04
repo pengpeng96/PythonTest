@@ -2,22 +2,22 @@
 函数和模块的使用
 在讲解本章节的内容之前，我们先来研究一道数学题，请说出下面的方程有多少组正整数解。
 X1+X2+X3+X4=8
-事实上，上面的问题等同于将8个苹果分成四组每组至少一个苹果有多少种方案。
+事实上，上面的问题等同于将8个苹果分成四组每组至少一个苹果有多少种方案。想到这一点问题的答案就呼之欲出了。
 
 '''
-# # 输入M和N计算C(M,N)
-# m = int(input('m = '))
-# n = int(input('n = '))
-# sm = 1
-# for num in range(1,m+1):
-#     sm *= num
-# sn = 1
-# for num in range(1,n+1):
-#     sn *=num
-# smn = 1
-# for num in range(1,m-n-1):
-#     smn *=num
-# print(sm // sn // smn)
+# 输入M和N计算C(M,N)
+m = int(input('m = '))
+n = int(input('n = '))
+sm = 1
+for num in range(1,m+1):
+    sm *= num
+sn = 1
+for num in range(1,n+1):
+    sn *=num
+smn = 1
+for num in range(1,m-n-1):
+    smn *=num
+print(sm // sn // smn)
 
 
 # 函数的作用
@@ -34,23 +34,23 @@ X1+X2+X3+X4=8
 重构之后的代码如下所示。
 
 '''
-# def factorial(num):
-#     '''
-#     求阶乘
-#
-#     :param num:非负整数
-#     :return: num的阶乘
-#     '''
-#     result = 1
-#     for b in range(1,num+1):
-#         result *=b
-#     return result
-#
-# a = int(input(' a = '))
-# b = int(input(' b = '))
-#
-# # 当需要计算阶乘的时候不需要再写循环求阶乘，而只需要直接调用已经定义好的函数
-# print(factorial(a) // factorial(b) // factorial(a-b))
+def factorial(num):
+    '''
+    求阶乘
+
+    :param num:非负整数
+    :return: num的阶乘
+    '''
+    result = 1
+    for b in range(1,num+1):
+        result *=b
+    return result
+
+a = int(input(' a = '))
+b = int(input(' b = '))
+
+# 当需要计算阶乘的时候不需要再写循环求阶乘，而只需要直接调用已经定义好的函数
+print(factorial(a) // factorial(b) // factorial(a-b))
 
 
 # 函数的参数
@@ -62,31 +62,31 @@ X1+X2+X3+X4=8
 
 '''
 
-# from random import randint
-#
-#
-# def roll_dice(n=2):
-#     '''
-#     摇骰子
-#
-#     :param n:骰子的个数
-#     :return: n颗骰子点数之和
-#     '''
-#     total = 0
-#     for _ in range(n):
-#         total += randint(1,6)
-#     return total
-#
-# def add(a=0,b=0,c=0):
-#     return a + b + c
-# # 如果没有指定参数就可以使用默认值摇两颗骰子
-# print(roll_dice(3))
-# print(add())
-# print(add(1))
-# print(add(1,2))
-# print(add(1,2,3))
-# # 传递参数时可不按照设定的顺序进行传递
-# print(add(c=50,a=100,b =200))
+from random import randint
+
+
+def roll_dice(n=2):
+    '''
+    摇骰子
+
+    :param n:骰子的个数
+    :return: n颗骰子点数之和
+    '''
+    total = 0
+    for _ in range(n):
+        total += randint(1,6)
+    return total
+
+def add(a=0,b=0,c=0):
+    return a + b + c
+# 如果没有指定参数就可以使用默认值摇两颗骰子
+print(roll_dice(3))
+print(add())
+print(add(1))
+print(add(1,2))
+print(add(1,2,3))
+# 传递参数时可不按照设定的顺序进行传递
+print(add(c=50,a=100,b =200))
 
 '''
 我们给上面两个函数的参数都设定了默认值，这也就意味着如果在调用函数的时候如果没有传入对应参数的值时将使用该参数的默认值，
@@ -95,19 +95,19 @@ X1+X2+X3+X4=8
 其实上面的`add`函数还有更好的实现方案，因为我们可能会对0个或多个参数进行加法运算，而具体有多少个参数是由调用者来决定，
 我们作为函数的设计者对这一点是一无所知的，因此在不确定参数个数的时候，我们可以使用可变参数，代码如下所示。
 '''
-# # 在参数名前面的*表示args是一个可变参数
-# # 即在调用add函数时可以传入0个或多个参数
-# def add(*args):
-#     total = 0
-#     for val in args:
-#         total += val
-#     return total
-#
-# print(add())
-# print(add(1))
-# print(add(1,2))
-# print(add(1,2,3))
-# print(add(1,3,5,7,9))
+# 在参数名前面的*表示args是一个可变参数
+# 即在调用add函数时可以传入0个或多个参数
+def add(*args):
+    total = 0
+    for val in args:
+        total += val
+    return total
+
+print(add())
+print(add(1))
+print(add(1,2))
+print(add(1,2,3))
+print(add(1,3,5,7,9))
 # print(add(2,4,6,8,10))
 
 
@@ -117,14 +117,14 @@ X1+X2+X3+X4=8
 最简单的场景就是在同一个.py文件中定义了两个同名函数，由于Python没有函数重载的概念，那么后面的定义会覆盖之前的定义，也就意味
 着两个函数同名函数实际上只有一个是存在的。
 '''
-# def foo():
-#     print('hello worl的！')
-#
-# def foo():
-#     print('goodbye,world!')
-#
-# foo()          #输出----goodbye,world!
 
+def foo():
+    print('hello worl的！')
+
+def foo():
+    print('goodbye,world!')
+
+foo()          #输出----goodbye,world!
 
 '''
 当然上面的这种情况我们很容易就能避免，但是如果项目是由多人协作进行团队开发的时候，团队中可能有多个程序员都定义了名为`foo`的
@@ -182,3 +182,4 @@ foo()
 
 
 '''
+
